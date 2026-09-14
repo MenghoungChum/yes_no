@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button{
+            width: 100px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body style="position: relative; height: 100vh; margin: 0; overflow: hidden;">
+    <div style="display: flex; flex-direction: column; height: 100vh; justify-content: center; align-items: center; background-color: pink;">
+        <img src="https://i.pinimg.com/736x/39/f1/16/39f116a94ba229b7cb0b051122b0555f.jpg" width="300" alt="">
+        <p>Do you love me</p>
+        <div id="contain-btn" style="display: flex; gap: 30px;">
+            <button id="yes" onclick="window.location='HTML/yes.html'">Yes</button>
+            <button id="no" style="background-color: red; position: absolute;">NO</button>
+        </div>
+    </div>
+</body>
+<script>
+    // Fixed: getElementById (singular) and targeted "no"
+    const btnNo = document.getElementById("no");
+
+    btnNo.addEventListener('mouseover', () => {
+        const maxX = window.innerWidth - btnNo.offsetWidth;
+        const maxY = window.innerHeight - btnNo.offsetHeight;
+
+        // Generate random X and Y positions
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        btnNo.style.left = randomX + "px";
+        btnNo.style.top = randomY + "px";
+    });
+</script>
+</html> 
