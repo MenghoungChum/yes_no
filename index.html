@@ -22,10 +22,9 @@
     </div>
 </body>
 <script>
-    // Fixed: getElementById (singular) and targeted "no"
     const btnNo = document.getElementById("no");
 
-    btnNo.addEventListener('mouseover', () => {
+    function moveButton() {
         const maxX = window.innerWidth - btnNo.offsetWidth;
         const maxY = window.innerHeight - btnNo.offsetHeight;
 
@@ -35,6 +34,15 @@
 
         btnNo.style.left = randomX + "px";
         btnNo.style.top = randomY + "px";
+    }
+
+    // For computers (hover)
+    btnNo.addEventListener('mouseover', moveButton);
+
+    // For phones/touchscreens (tap)
+    btnNo.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevents it from actually clicking/triggering a click on mobile
+        moveButton();
     });
 </script>
-</html> 
+</html>

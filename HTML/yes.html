@@ -1,12 +1,249 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Yay!</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            height: 100vh;
+            margin: 0;
+
+            background-color: pink;
+            font-family: Arial, sans-serif;
+
+            overflow: hidden;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 2;
+
+            animation: popup 0.8s ease;
+        }
+
+        .content img {
+            width: 350px;
+            max-width: 90%;
+        }
+
+        .message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d63384;
+            margin-top: 20px;
+        }
+
+        .heart {
+            font-size: 50px;
+            animation: heartBeat 1s infinite;
+        }
+
+        /* Confetti Canvas */
+        #confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes popup {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            70% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+            }
+        }
+    </style>
 </head>
-<body style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    <img src="https://media1.tenor.com/m/Twpbh1jgXD4AAAAC/congratulations-congrats.gif" alt="">
-    <p>I love you to</p>
+
+<body>
+
+    <!-- Confetti -->
+    <canvas id="confetti"></canvas>
+
+    <!-- Content -->
+    <div class="content">
+
+        <img
+            src="https://media1.tenor.com/m/Twpbh1jgXD4AAAAC/congratulations-congrats.gif"
+            alt="Congratulations"
+        >
+
+        <div class="heart">
+            ❤️
+        </div>
+
+        <p class="message">
+            I love you too! ❤️
+        </p>
+
+    </div>
+
+
+    <script>
+
+        // ==============================
+        // Canvas Setup
+        // ==============================
+
+        const canvas = document.getElementById("confetti");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+
+        // ==============================
+        // Confetti Particles
+        // ==============================
+
+        let confetti = [];
+
+
+        function createConfetti() {
+
+            confetti = [];
+
+            for (let i = 0; i < 200; i++) {
+
+                confetti.push({
+
+                    x: Math.random() * canvas.width,
+
+                    y: Math.random() * -canvas.height,
+
+                    width: Math.random() * 10 + 5,
+
+                    height: Math.random() * 10 + 5,
+
+                    speed: Math.random() * 4 + 2,
+
+                    wind: Math.random() * 2 - 1,
+
+                    rotation: Math.random() * 360,
+
+                    rotationSpeed: Math.random() * 10 - 5,
+
+                    color: `hsl(${Math.random() * 360}, 100%, 60%)`
+
+                });
+
+            }
+        }
+
+
+        // ==============================
+        // Draw Confetti
+        // ==============================
+
+        function drawConfetti() {
+
+            ctx.clearRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+
+            confetti.forEach((particle) => {
+
+                particle.y += particle.speed;
+
+                particle.x += particle.wind;
+
+                particle.rotation += particle.rotationSpeed;
+
+
+                ctx.save();
+
+                ctx.translate(
+                    particle.x,
+                    particle.y
+                );
+
+                ctx.rotate(
+                    particle.rotation * Math.PI / 180
+                );
+
+
+                ctx.fillStyle = particle.color;
+
+                ctx.fillRect(
+                    -particle.width / 2,
+                    -particle.height / 2,
+                    particle.width,
+                    particle.height
+                );
+
+
+                ctx.restore();
+
+            });
+
+
+            requestAnimationFrame(drawConfetti);
+        }
+
+
+        // ==============================
+        // Start Effect
+        // ==============================
+
+        createConfetti();
+
+        drawConfetti();
+
+
+        // ==============================
+        // Responsive
+        // ==============================
+
+        window.addEventListener("resize", () => {
+
+            canvas.width = window.innerWidth;
+
+            canvas.height = window.innerHeight;
+
+        });
+
+    </script>
+
 </body>
 </html>
