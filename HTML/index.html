@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First HTML</title>
+    <link rel="shortcut icon" href="../image/image.png" type="image/x-icon">
+</head>
+<body>
+    <button onclick="changeThem()">Chage Background Color</button>
+    <p>White Mod</p>
+    <img src="https://i.pinimg.com/736x/c3/34/75/c33475f318e4d8bc9badf93c8faa089e.jpg" width="300" alt="">
+</body>
+<script>
+    const body=document.body;
+    const p=document.getElementsByTagName("p")[0]
+    const image=document.getElementsByTagName("img")[0]
+    let isDark=false;
+
+    const images=["https://i.pinimg.com/736x/c3/34/75/c33475f318e4d8bc9badf93c8faa089e.jpg","https://i.pinimg.com/736x/9f/b1/e7/9fb1e719ead676c81eddde786f3f161f.jpg","https://i.pinimg.com/736x/9f/b1/e7/9fb1e719ead676c81eddde786f3f161f.jpg","https://i.pinimg.com/originals/1b/e7/7f/1be77f90b21063b6b40ed74415294700.png"]
+
+    
+    function changeThem(){
+        let randomNumber=Math.floor(Math.random()* images.length)
+
+        isDark=!isDark;
+        if(isDark){
+            p.innerText="Dark Mode"
+            body.style.backgroundColor="black"
+            p.style.color="white"
+            image.src=`${images[randomNumber]}`
+        }else{
+            p.innerText="White Mode"
+            image.src=`${images[randomNumber]}`
+            body.style.backgroundColor="white"
+            p.style.color="black"
+        }
+    }
+</script>
+</html>
